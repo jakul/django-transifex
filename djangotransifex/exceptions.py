@@ -1,0 +1,3 @@
+
+class DjangoTransifexAPIException(Exception):
+    pass

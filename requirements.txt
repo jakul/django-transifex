@@ -1,0 +1,4 @@
+django
+mock
+python-transifex
+clint # for command line output
