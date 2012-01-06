@@ -1,14 +1,19 @@
 from django.conf import settings
+from django.core.exceptions import ImproperlyConfigured
 
-#project_slug = settings.TRANSIFEX_PROJECT_NAME
-#resource_prefix = 'aproject'#TRANSIFEX_RESOURCE_PREFIX
-#source_language = settings.LANGUAGE_CODE
-#username = settings.TRANSIFEX_USERNAME
-#password = settings.TRANSIFEX_PASSWORD
-#host = settings.TRANSIFEX_HOST
+TRANSIFEX_USERNAME = getattr(settings, 'TRANSIFEX_USERNAME', None)
+if TRANSIFEX_USERNAME is None:
+    raise ImproperlyConfigured('You must set setting %r' % (
+        'TRANSIFEX_USERNAME'
+    ))
+    
+TRANSIFEX_PASSWORD = getattr(settings, 'TRANSIFEX_PASSWORD', None)
+if TRANSIFEX_PASSWORD is None:
+    raise ImproperlyConfigured('You must set setting %r' % (
+        'TRANSIFEX_PASSWORD'
+    ))
+    
 
-TRANSIFEX_USERNAME = getattr(settings, 'TRANSIFEX_USERNAME')
-TRANSIFEX_PASSWORD = getattr(settings, 'TRANSIFEX_PASSWORD')
 TRANSIFEX_HOST = getattr(settings, 'TRANSIFEX_HOST', 'https://www.transifex.net/')
 SOURCE_LANGUAGE_CODE = getattr(settings, 'TRANSIFEX_SOURCE_LANGUAGE', settings.LANGUAGE_CODE)
 RESOURCE_PREFIX = getattr(settings, 'TRANSIFEX_RESOURCE_PREFIX', '')
