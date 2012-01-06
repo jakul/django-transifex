@@ -49,11 +49,11 @@ class DjangoTransifexAPI(TransifexAPI):
         for filepath in files:
             __, filename = os.path.split(filepath) 
             base_filename = filename.replace('.po', '')
-            resource_slug = self.resource_prefix + base_filename
+            resource_slug = app_settings.RESOURCE_PREFIX + base_filename
             print('Uploading %r to %r' % (filename, resource_slug))
             
             try:
-                self.api.update_source_translation(
+                self.update_source_translation(
                     project_slug=project_slug, resource_slug=resource_slug,
                     path_to_pofile=filepath
                 )
@@ -67,7 +67,7 @@ class DjangoTransifexAPI(TransifexAPI):
                         puts('Resource not found')
                         
                     # Create a new resource from scratch instead
-                    self.api.new_resource(
+                    self.new_resource(
                         project_slug=project_slug, path_to_pofile=filepath,
                         resource_slug=resource_slug,
                     )
