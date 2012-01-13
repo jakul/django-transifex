@@ -19,6 +19,12 @@ SOURCE_LANGUAGE_CODE = getattr(settings, 'TRANSIFEX_SOURCE_LANGUAGE', settings.L
 RESOURCE_PREFIX = getattr(settings, 'TRANSIFEX_RESOURCE_PREFIX', '')
 PROJECT_SLUG = getattr(settings, 'TRANSIFEX_PROJECT_SLUG', 'MyProject')
 
+
+# Transifex might use different language codes to that used in the Django app.
+# This dictionary will convert between them. The key is the transifex code,
+# the value should be a string corresponding to the Django code
+LANGUAGE_MAPPING = getattr(settings, 'TRANSIFEX_LANGUAGE_MAPPING', {})
+
 def _get_project_path():
     from django.utils.importlib import import_module
     import os

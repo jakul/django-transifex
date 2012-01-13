@@ -1,0 +1,117 @@
+"""
+txpush.py
+
+Push source translations to transifex.
+"""
+
+from django.core.management.base import NoArgsCommand, BaseCommand, CommandError
+from djangotransifex import app_settings
+from djangotransifex.api import DjangoTransifexAPI
+from textwrap import dedent
+import inspect
+
+
+class Command(BaseCommand):     
+    ## Settings ##
+    project_slug = app_settings.PROJECT_SLUG
+    resource_prefix = app_settings.RESOURCE_PREFIX
+    source_language = app_settings.SOURCE_LANGUAGE_CODE
+    username = app_settings.TRANSIFEX_USERNAME
+    password = app_settings.TRANSIFEX_PASSWORD
+    host = app_settings.TRANSIFEX_HOST
+
+    @property
+    def help(self):
+        """
+        Dynamically generate the help based on the available methods of this
+        object
+        """
+        help_string = getattr(self, '__help', None)
+        if help_string is None:
+            help_string = dedent("""
+            Available Commands:
+            """)
+            
+            transifex_methods = [
+                method for method in dir(self) 
+                if method.startswith('transifex_')
+                and callable(getattr(self, method))
+            ]
+            for method_name in transifex_methods:
+                reduced_method_name = method_name.replace('transifex_', '')
+                help_string += ' * %s\n' % (reduced_method_name)
+                
+                # Check for a docstring
+                method = getattr(self, method_name)
+                doc = inspect.getdoc(method)
+                for line in doc.split('\n'):
+                    help_string += '    %s\n' % (line)
+                    
+            self.__help = help_string
+        return help_string
+
+    def usage(self, subcommand):
+        """
+        Return a brief description of how to use this command, by
+        default from the attribute ``self.help``.
+        """
+        usage = '%%prog %s command [options] %s' % (subcommand, self.args)
+        if self.help:
+            return '%s\n\n%s' % (usage, self.help)
+        else:
+            return usage
+
+    def handle(self, *args, **options):
+        if len(args) == 0:
+            raise CommandError('You must give the name of an action to perform')
+        command = args[0]
+        command_func = getattr(self, 'transifex_%s' % (command), None)
+        if command_func is None:
+            raise CommandError('Unknown command %r' % (command))
+        
+        command_func(*args[1:], **options)
+    
+    @property
+    def api(self):
+        """
+        Create an api instance
+        """
+        if not hasattr(self, '_api'):
+            self._api = DjangoTransifexAPI(
+                username=self.username, password=self.password, host=self.host
+            )
+            #TODO: Do a ping here
+        return self._api
+
+    def transifex_upload_source_translations(self, *args, **options):
+        """
+        Usage: ./manage.py tx upload_source_translation [options]
+        Upload the source translation to Transifex.
+        """
+        self.api.upload_source_translations(project_slug=self.project_slug)
+
+    def transifex_upload_translations(self, *args, **options):
+        """
+        Usage: ./manage.py tx upload_translations language_code [options]
+        Upload the translations for the given language to Transifex.
+        
+        This will overwrite any translations made on the Transifex server
+        """
+        if len(args) == 0:
+            raise CommandError('Please provide the language code to update')
+        language_code = args[0]
+        self.api.upload_translations(
+            project_slug=self.project_slug, language_code=language_code
+        )
+        
+    def transifex_pull_translations(self, *args, **kwargs):
+        """
+        Usage: ./manage.py tx pull_translations [options]
+        Pull all translations from the Transifex server to the local machine.
+        
+        This will overwrite any translations made locally
+        """
+        self.api.pull_translations(
+            project_slug=self.project_slug, source_language=self.source_language
+        )
+        

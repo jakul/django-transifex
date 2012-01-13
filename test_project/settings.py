@@ -1,5 +1,6 @@
 # Django settings for mysite project.
-
+import sys
+sys.path.insert(0,'/p/python-transifex')
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -32,6 +33,7 @@ TIME_ZONE = 'Europe/London'
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-gb'
+LANGUAGES = (('en-gb', 'English'), ('it', 'Italian'))
 
 SITE_ID = 1
 
@@ -150,3 +152,4 @@ LOGGING = {
 
 TRANSIFEX_USERNAME = 'abcde'
 TRANSIFEX_PASSWORD = 'abcde'
+TRANSIFEX_LANGUAGE_MAPPING = {'en_GB': 'en-gb', 'it_IT': 'it'}
