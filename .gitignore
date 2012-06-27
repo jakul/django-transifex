@@ -1,0 +1,5 @@
+dist/
+djangotransifex.egg-info/
+
+# PyCharm editor files
+.idea
