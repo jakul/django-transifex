@@ -115,3 +115,9 @@ class Command(BaseCommand):
             project_slug=self.project_slug, source_language=self.source_language
         )
         
+    def transifex_ping(self, *args, **kwargs):
+        """
+        Ping the server to verify connection details and auth details
+        """
+        print(self.api.ping())
+        

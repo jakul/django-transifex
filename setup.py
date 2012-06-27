@@ -1,8 +1,11 @@
 from setuptools import setup, find_packages
 
+
+from djangotransifex import VERSION
+
 setup(
     name='djangotransifex',
-    version='0.0.2',
+    version=VERSION,
     description='A django api to transifex',
     long_description=open('README.rst').read(),
     author='Craig Blaszczyk',

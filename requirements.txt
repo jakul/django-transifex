@@ -1,5 +1,6 @@
 django
-json
+#json
 mock
 python-transifex
 clint # for command line output
+fabric
