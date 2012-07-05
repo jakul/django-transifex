@@ -17,14 +17,13 @@ class DjangoTransifexAPI(TransifexAPI):
         This command will create resources if they don't already exist in the
         project
         
-        
         @param project_slug
             the project slug
             
         @return 
         """
-        
-        
+
+
         source_folder = os.path.join(
              app_settings.PROJECT_PATH, 'locale',
              app_settings.SOURCE_LANGUAGE_CODE, 'LC_MESSAGES'
@@ -151,7 +150,7 @@ class DjangoTransifexAPI(TransifexAPI):
         # First check that the project exists on transifex
         if not self.project_exists(project_slug):
             raise ProjectNotFound(project_slug)
-            
+
         resources = self.list_resources(project_slug)
         for resource in resources:
             resource_slug = resource['slug']

@@ -98,7 +98,7 @@ class Command(BaseCommand):
         This will overwrite any translations made on the Transifex server
         """
         if len(args) == 0:
-            raise CommandError('Please provide the language code to update')
+            raise CommandError('Please provide the language code to upload')
         language_code = args[0]
         self.api.upload_translations(
             project_slug=self.project_slug, language_code=language_code
@@ -120,4 +120,14 @@ class Command(BaseCommand):
         Ping the server to verify connection details and auth details
         """
         print(self.api.ping())
+
+    def transifex_create_project(self, *args, **kwargs):
+        """
+        Usage: ./manage.py tx create_project
+        Create the project on Transifex.
+        """
+        self.api.new_project(
+            slug=self.project_slug, name=self.project_slug,
+            source_language_code=self.source_language
+        )
         
