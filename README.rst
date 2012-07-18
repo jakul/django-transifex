@@ -22,3 +22,13 @@ The following are optional settings
                       # Transifex language code, and the value is the
                       # Django language code
                       # default: No mappings
+
+
+CHANGELOG
+=========
+
+0.1.3
+-----
+* Add output on commandline when commands execute sucessfully
+* Add example settings into readme
+
