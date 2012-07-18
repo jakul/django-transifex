@@ -70,6 +70,7 @@ class Command(BaseCommand):
             raise CommandError('Unknown command %r' % (command))
         
         command_func(*args[1:], **options)
+        print('Executed {0} on project {1}'.format(command, self.project_slug))
     
     @property
     def api(self):
@@ -94,7 +95,6 @@ class Command(BaseCommand):
         """
         Usage: ./manage.py tx upload_translations language_code [options]
         Upload the translations for the given language to Transifex.
-        
         This will overwrite any translations made on the Transifex server
         """
         if len(args) == 0:
@@ -108,7 +108,6 @@ class Command(BaseCommand):
         """
         Usage: ./manage.py tx pull_translations [options]
         Pull all translations from the Transifex server to the local machine.
-        
         This will overwrite any translations made locally
         """
         self.api.pull_translations(
