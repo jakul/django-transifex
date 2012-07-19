@@ -7,6 +7,8 @@ Push source translations to transifex.
 from django.core.management.base import NoArgsCommand, BaseCommand, CommandError
 from djangotransifex import app_settings
 from djangotransifex.api import DjangoTransifexAPI
+import random
+import sys
 from textwrap import dedent
 import inspect
 
@@ -100,10 +102,48 @@ class Command(BaseCommand):
         if len(args) == 0:
             raise CommandError('Please provide the language code to upload')
         language_code = args[0]
+        self.confirm_command(language_code)
+
         self.api.upload_translations(
             project_slug=self.project_slug, language_code=language_code
         )
-        
+
+    def _choose_word(self):
+        with open('/usr/share/dict/words') as dict_file:
+            dict_words = dict_file.readlines()
+
+        word = None
+        while word is None:
+            word = random.choice(dict_words).replace('\n', '')
+            if len(word) < 5:
+                word = None
+
+        return word
+
+    def confirm_command(self, language_code):
+        safety_word = self._choose_word()
+
+        print((
+            'This command will delete the existing {0} translations in the {1} '
+            'project').format(language_code, self.project_slug)
+        )
+        print(
+            'THIS IS NOT REVERSIBLE. YOU MAY LOSE DATA WHICH CANNOT BE '
+            'REGENERATED'
+        )
+        print(
+            'To continue, please type this word exactly as it appears - {0}'\
+            .format(safety_word)
+        )
+        typed_word = raw_input('> ')
+
+        if typed_word == safety_word:
+            return
+        else:
+            print('Word entered incorrectly.')
+            print('No upload performed.')
+            sys.exit(1)
+
     def transifex_pull_translations(self, *args, **kwargs):
         """
         Usage: ./manage.py tx pull_translations [options]
