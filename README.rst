@@ -27,6 +27,11 @@ The following are optional settings
 CHANGELOG
 =========
 
+0.1.4
+-----
+* Make the user confirm their intentions when they are pushing translations which could destroy work done
+  on the Transifex server
+
 0.1.3
 -----
 * Add output on commandline when commands execute sucessfully
