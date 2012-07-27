@@ -26,6 +26,10 @@ The following are optional settings
 
 CHANGELOG
 =========
+0.1.5
+-----
+* Output the name of the command being run before the command executes
+* Make the user confirm on update_source_translations, as it is a destructive action
 
 0.1.4
 -----
