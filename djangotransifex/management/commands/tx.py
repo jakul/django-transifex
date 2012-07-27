@@ -13,7 +13,7 @@ from textwrap import dedent
 import inspect
 
 
-class Command(BaseCommand):     
+class Command(BaseCommand):
     ## Settings ##
     project_slug = app_settings.PROJECT_SLUG
     resource_prefix = app_settings.RESOURCE_PREFIX
@@ -33,22 +33,22 @@ class Command(BaseCommand):
             help_string = dedent("""
             Available Commands:
             """)
-            
+
             transifex_methods = [
-                method for method in dir(self) 
+                method for method in dir(self)
                 if method.startswith('transifex_')
                 and callable(getattr(self, method))
             ]
             for method_name in transifex_methods:
                 reduced_method_name = method_name.replace('transifex_', '')
                 help_string += ' * %s\n' % (reduced_method_name)
-                
+
                 # Check for a docstring
                 method = getattr(self, method_name)
                 doc = inspect.getdoc(method)
                 for line in doc.split('\n'):
                     help_string += '    %s\n' % (line)
-                    
+
             self.__help = help_string
         return help_string
 
@@ -70,10 +70,10 @@ class Command(BaseCommand):
         command_func = getattr(self, 'transifex_%s' % (command), None)
         if command_func is None:
             raise CommandError('Unknown command %r' % (command))
-        
+
+        print('Executing {0} on project {1}'.format(command, self.project_slug))
         command_func(*args[1:], **options)
-        print('Executed {0} on project {1}'.format(command, self.project_slug))
-    
+
     @property
     def api(self):
         """
@@ -91,6 +91,7 @@ class Command(BaseCommand):
         Usage: ./manage.py tx upload_source_translation [options]
         Upload the source translation to Transifex.
         """
+        self.confirm_command(app_settings.SOURCE_LANGUAGE_CODE)
         self.api.upload_source_translations(project_slug=self.project_slug)
 
     def transifex_upload_translations(self, *args, **options):
@@ -124,8 +125,8 @@ class Command(BaseCommand):
         safety_word = self._choose_word()
 
         print((
-            'This command will delete the existing {0} translations in the {1} '
-            'project').format(language_code, self.project_slug)
+            'This command will delete the existing "{0}" translations in the '
+            '"{1}" project').format(language_code, self.project_slug)
         )
         print(
             'THIS IS NOT REVERSIBLE. YOU MAY LOSE DATA WHICH CANNOT BE '
@@ -153,7 +154,7 @@ class Command(BaseCommand):
         self.api.pull_translations(
             project_slug=self.project_slug, source_language=self.source_language
         )
-        
+
     def transifex_ping(self, *args, **kwargs):
         """
         Ping the server to verify connection details and auth details
@@ -169,4 +170,4 @@ class Command(BaseCommand):
             slug=self.project_slug, name=self.project_slug,
             source_language_code=self.source_language
         )
-        
+
