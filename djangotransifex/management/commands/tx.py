@@ -151,9 +151,14 @@ class Command(BaseCommand):
         Pull all translations from the Transifex server to the local machine.
         This will overwrite any translations made locally
         """
+        print(
+            'Pulling translations for "{0}" project, in "{1}" source language'\
+            .format(self.project_slug, self.source_language)
+        )
         self.api.pull_translations(
             project_slug=self.project_slug, source_language=self.source_language
         )
+        print('Translations pulled')
 
     def transifex_ping(self, *args, **kwargs):
         """
@@ -166,8 +171,13 @@ class Command(BaseCommand):
         Usage: ./manage.py tx create_project
         Create the project on Transifex.
         """
+        print(
+            'Creating project "{0}" with source language "{1}"'\
+            .format(self.project_slug, self.source_language)
+            )
         self.api.new_project(
             slug=self.project_slug, name=self.project_slug,
             source_language_code=self.source_language
         )
+        print('Project created')
 
