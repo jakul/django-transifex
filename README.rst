@@ -26,6 +26,11 @@ The following are optional settings
 
 CHANGELOG
 =========
+
+0.1.6
+-----
+* Make pull_translations and create_project commands print to the command line
+
 0.1.5
 -----
 * Output the name of the command being run before the command executes
