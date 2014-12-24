@@ -6,13 +6,13 @@ if TRANSIFEX_USERNAME is None:
     raise ImproperlyConfigured('You must set setting %r' % (
         'TRANSIFEX_USERNAME'
     ))
-    
+
 TRANSIFEX_PASSWORD = getattr(settings, 'TRANSIFEX_PASSWORD', None)
 if TRANSIFEX_PASSWORD is None:
     raise ImproperlyConfigured('You must set setting %r' % (
         'TRANSIFEX_PASSWORD'
     ))
-    
+
 
 TRANSIFEX_HOST = getattr(settings, 'TRANSIFEX_HOST', 'https://www.transifex.net/')
 SOURCE_LANGUAGE_CODE = getattr(settings, 'TRANSIFEX_SOURCE_LANGUAGE', settings.LANGUAGE_CODE)
@@ -34,4 +34,4 @@ def _get_project_path():
     return projectpath
 
 # Not strictly a setting, but this is a good place to keep it
-PROJECT_PATH = _get_project_path()
+PROJECT_PATH = getattr(settings, 'TRANSIFEX_PROJECT_PATH', _get_project_path())
