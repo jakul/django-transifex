@@ -1,7 +1,18 @@
 from setuptools import setup, find_packages
-
+import sys
+import os
 
 from djangotransifex import VERSION
+
+
+if sys.argv[-1] == 'publish-to-pypi':
+    os.system("python setup.py sdist upload")
+    os.system("git tag -a %s -m 'version %s'" % (VERSION, VERSION))
+    os.system("git push --tags")
+    sys.exit()
+
+# Workaround to prevent hardlinking when running on a vagrant shared folder
+del os.link
 
 setup(
     name='djangotransifex',
@@ -11,7 +22,6 @@ setup(
     author='Craig Blaszczyk',
     author_email='masterjakul@gmail.com',
     url='https://github.com/jakul/django-transifex',
-    download_url='https://github.com/jakul/django-transifex/downloads',
     license='BSD',
     packages=find_packages(),
     tests_require=[
