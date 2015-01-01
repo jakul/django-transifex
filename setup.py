@@ -6,7 +6,7 @@ from djangotransifex import VERSION
 
 
 if sys.argv[-1] == 'publish-to-pypi':
-    os.system("python setup.py sdist upload")
+    os.system("python setup.py sdist upload -r pypi")
     os.system("git tag -a %s -m 'version %s'" % (VERSION, VERSION))
     os.system("git push --tags")
     sys.exit()
@@ -17,7 +17,7 @@ del os.link
 setup(
     name='djangotransifex',
     version=VERSION,
-    description='A django api to transifex',
+    description='A Django api to Transifex',
     long_description=open('README.md').read(),
     author='Craig Blaszczyk',
     author_email='masterjakul@gmail.com',
