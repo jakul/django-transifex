@@ -4,18 +4,18 @@ Settings
 ========
 You must set the following in your settings file
 
-    # The username for the transidex server
+    # The username for the Transifex server
     TRANSIFEX_USERNAME = 'username'
     
-    # The password for the transifex server
+    # The password for the Transifex server
     TRANSIFEX_PASSWORD = 'password'
 
 
 The following are optional settings
 
 
-    # The transifex host to use
-    # default: `https://www.transifex.net/`
+    # The Transifex host to use
+    # default: `https://www.Transifex.net/`
     TRANSIFEX_HOST
     
     # The source language for your strings.
