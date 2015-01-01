@@ -1,5 +1,7 @@
 django>=1.3,<1.6
-mock
-python-transifex
-clint # for command line output
-fabric
+python-transifex==0.1.7
+clint==0.4.1 # for command line output
+fabric==1.10.1
+
+# Test requirements
+mock==1.0.1
