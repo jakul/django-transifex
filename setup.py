@@ -7,7 +7,7 @@ setup(
     name='djangotransifex',
     version=VERSION,
     description='A django api to transifex',
-    long_description=open('README.rst').read(),
+    long_description=open('README.md').read(),
     author='Craig Blaszczyk',
     author_email='masterjakul@gmail.com',
     url='https://github.com/jakul/django-transifex',
