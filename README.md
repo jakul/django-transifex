@@ -40,6 +40,11 @@ The following are optional settings
 CHANGELOG
 =========
 
+0.1.7
+-----
+* Make `PROJECT_PATH` setting overridable from `settings.py`
+* Convert `README.rst` to be markdown
+
 0.1.6
 -----
 * Make pull_translations and create_project commands print to the command line
