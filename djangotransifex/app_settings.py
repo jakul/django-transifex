@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
+from django.utils.functional import lazy
 
 TRANSIFEX_USERNAME = getattr(settings, 'TRANSIFEX_USERNAME', None)
 if TRANSIFEX_USERNAME is None:
@@ -34,4 +35,6 @@ def _get_project_path():
     return projectpath
 
 # Not strictly a setting, but this is a good place to keep it
-PROJECT_PATH = getattr(settings, 'TRANSIFEX_PROJECT_PATH', _get_project_path())
+PROJECT_PATH = getattr(settings, 'TRANSIFEX_PROJECT_PATH',
+                       lazy(_get_project_path))
+

@@ -15,7 +15,7 @@ class DjangoTransifexAPI(TransifexAPI):
         Uploads the current translations as a new source translations. 
         
         This command will create resources if they don't already exist in the
-        project
+        Transifex project
         
         @param project_slug
             the project slug
@@ -34,7 +34,7 @@ class DjangoTransifexAPI(TransifexAPI):
             raise NoPoFilesFound(
                 'Could not find any .po files in %r' % (source_folder)
             )
-            
+
         # First check that the project exists on transifex
         if not self.project_exists(project_slug):
             self.new_project(slug=project_slug)
