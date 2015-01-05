@@ -1,4 +1,7 @@
+Djangotransifex
+===============
 
+This app can help you push/pull *project level* translations into Transifex.
 
 Settings
 ========
