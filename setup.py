@@ -11,14 +11,11 @@ if sys.argv[-1] == 'publish-to-pypi':
     os.system("git push --tags")
     sys.exit()
 
-# Workaround to prevent hardlinking when running on a vagrant shared folder
-del os.link
 
 setup(
     name='djangotransifex',
     version=VERSION,
     description='A Django api to Transifex',
-    long_description=open('README.md').read(),
     author='Craig Blaszczyk',
     author_email='masterjakul@gmail.com',
     url='https://github.com/jakul/django-transifex',
@@ -27,7 +24,6 @@ setup(
     tests_require=[
     ],
     install_requires=open('requirements.txt').read(),
-    include_package_data=True,
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django',
