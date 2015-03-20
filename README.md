@@ -67,3 +67,4 @@ CHANGELOG
 * Add output on commandline when commands execute sucessfully
 * Add example settings into readme
 
+
