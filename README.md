@@ -43,6 +43,10 @@ The following are optional settings
 CHANGELOG
 =========
 
+0.1.8
+-----
+* Swtich to py.test and tox.ini
+
 0.1.7
 -----
 * Make `PROJECT_PATH` setting overridable from `settings.py`
