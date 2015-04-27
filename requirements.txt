@@ -1,6 +1,9 @@
 django>=1.3,<1.8
 python-transifex==0.1.7
 
+# Python 2.6 compatibility
+importlib==1.0.3
+
 # Test requirements
 mock==1.0.1
 pytest==2.6.4
