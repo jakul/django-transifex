@@ -1,10 +1,14 @@
 from unittest import TestCase
 from mock import patch, MagicMock, Mock
 from djangotransifex.api import DjangoTransifexAPI
-from django.utils.unittest.case import skip
 from djangotransifex.exceptions import NoPoFilesFound, LanguageCodeNotAllowed,\
     ProjectNotFound, ResourceNotFound
 import json
+
+try:
+    from unittest2 import skip
+except ImportError:
+    from unittest import skip
 
 class _BaseDjangoTransifexAPITest(TestCase):
 
