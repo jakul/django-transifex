@@ -43,6 +43,10 @@ The following are optional settings
 CHANGELOG
 =========
 
+0.1.10
+------
+* Relax requirements versions
+
 0.1.9
 -----
 Fix pypi version
