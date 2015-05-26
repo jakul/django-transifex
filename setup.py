@@ -22,6 +22,11 @@ if sys.argv[-1] == 'install-from-pypitest':
     sys.exit()
 
 
+if sys.argv[-1] == 'check-import':
+    os.system("pip install --upgrade djangotransifex && python -c \"import djangotransifex; print(djangotransifex.VERSION)\"")
+    sys.exit()
+
+
 setup(
     name='djangotransifex',
     version=VERSION,
