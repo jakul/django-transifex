@@ -12,6 +12,16 @@ if sys.argv[-1] == 'publish-to-pypi':
     sys.exit()
 
 
+if sys.argv[-1] == 'publish-to-pypitest':
+    os.system("python setup.py sdist upload -r pypitest")
+    sys.exit()
+
+
+if sys.argv[-1] == 'install-from-pypitest':
+    os.system("pip install -i https://testpypi.python.org/pypi djangotransifex")
+    sys.exit()
+
+
 setup(
     name='djangotransifex',
     version=VERSION,
