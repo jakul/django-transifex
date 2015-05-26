@@ -24,6 +24,7 @@ setup(
     tests_require=[
     ],
     install_requires=open('requirements.txt').read(),
+    zip_safe=False,
     include_package_data=True,
     classifiers=[
         'Environment :: Web Environment',
