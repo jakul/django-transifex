@@ -43,6 +43,10 @@ The following are optional settings
 CHANGELOG
 =========
 
+0.1.9
+-----
+Fix pypi version
+
 0.1.8
 -----
 * Swtich to py.test and tox.ini
