@@ -3,3 +3,6 @@ djangotransifex.egg-info/
 
 # PyCharm editor files
 .idea
+
+# virtualenv
+env/
