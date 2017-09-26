@@ -5,7 +5,9 @@ To run the tests, clone the repository, and then:
     # Setup the virtual environment
     virtualenv env
     env/bin/activate
+    # windows users: env\Scripts\activate.bat
     pip install -r requirements.txt
+    pip install -r requirements-dev.txt
 
     # Run the tests
     py.test

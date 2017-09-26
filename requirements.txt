@@ -1,8 +1,2 @@
 django
 python-transifex>=0.1.7
-
-# Test requirements
-mock==1.0.1
-pytest==2.6.4
-pytest-django==2.7
-
